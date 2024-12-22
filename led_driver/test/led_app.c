@@ -11,29 +11,23 @@ int main(int argc, char** argv)
     int ret = 0;
     int fd = open(filename, 0, O_RDWR);
     if (fd < 0) {
-        printf("open file failed\n");
-        return -1;
+        printf("open file failed\r\n");
+        return ret;
     }
 
-    char readbuf[100];
-    ret = read(fd, readbuf, sizeof(readbuf));
+    char *writebuf;
+    writebuf = argv[2];
+    printf("data to write: %s\r\n", writebuf);
+    ret = write(fd, writebuf, 1);
     if (ret < 0) {
-        printf("read file failed\n");
-        return -1;
-    }
-    printf("%s", readbuf);
-
-    char writebuf[] = "hello my device!";
-    ret = write(fd, writebuf, sizeof(writebuf));
-    if (ret < 0) {
-        printf("write file failed\n");
-        return -1;
+        printf("write file failed\r\n");
+        return ret;
     }
 
     ret = close(fd);
     if (ret < 0) {
-        printf("close file failed\n");
-        return -1;
+        printf("close file failed\r\n");
+        return ret;
     }
 
 
